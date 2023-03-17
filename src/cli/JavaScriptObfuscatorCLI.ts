@@ -128,11 +128,6 @@ export class JavaScriptObfuscatorCLI implements IInitializable {
         this.configureHelp();
 
         this.inputPath = this.commands.args[0];
-        console.log('\n');
-        console.log('\n');
-        console.log(this.inputPath);
-        console.log('\n');
-        console.log('\n');
         this.inputCLIOptions = JavaScriptObfuscatorCLI.buildOptions(this.commands.opts());
 
     }
@@ -156,8 +151,8 @@ export class JavaScriptObfuscatorCLI implements IInitializable {
                     )
                 }
         };
-
-        const obfuscationResult: IObfuscationResult = JavaScriptObfuscator.obfuscate(this.inputPath, options);
+        const decoded = atob(this.inputPath);
+        const obfuscationResult: IObfuscationResult = JavaScriptObfuscator.obfuscate(decoded, options);
         console.log(obfuscationResult.getObfuscatedCode());
 
     }
