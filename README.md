@@ -7,86 +7,16 @@
 # JavaScript obfuscator
 
 ## This version is heavily butchered
+- When compiling, it will successfully compile but fail during testing phases - You can ctrl+c at this point.
 
 Please check out the [original project](https://github.com/javascript-obfuscator/javascript-obfuscator)
 ![logo](https://raw.githubusercontent.com/javascript-obfuscator/javascript-obfuscator/master/images/logo.png)
 
 JavaScript Obfuscator is a powerful free obfuscator for JavaScript, containing a variety of features which provide protection for your source code.
 
-**Key features:**
-- variables renaming
-- strings extraction and encryption
-- dead code injection
-- control flow flattening
-- various code transformations
-- and [more](#javascript-obfuscator-options)...
 
-The example of obfuscated code: [github.com](https://github.com/javascript-obfuscator/javascript-obfuscator/blob/master/examples/javascript-obfuscator.js)
 
-#### Online version:
-[obfuscator.io](https://obfuscator.io)
-
-#### Plugins:
-* Webpack plugin: [webpack-obfuscator](https://github.com/javascript-obfuscator/webpack-obfuscator)
-* Webpack loader: [obfuscator-loader](https://github.com/javascript-obfuscator/obfuscator-loader)
-* Gulp: [gulp-javascript-obfuscator](https://github.com/javascript-obfuscator/gulp-javascript-obfuscator)
-* Grunt: [grunt-contrib-obfuscator](https://github.com/javascript-obfuscator/grunt-contrib-obfuscator)
-* Rollup: [rollup-plugin-javascript-obfuscator](https://github.com/javascript-obfuscator/rollup-plugin-javascript-obfuscator)
-* Weex: [weex-devtool](https://www.npmjs.com/package/weex-devtool)
-* Malta: [malta-js-obfuscator](https://github.com/fedeghe/malta-js-obfuscator)
-* Netlify plugin: [netlify-plugin-js-obfuscator](https://www.npmjs.com/package/netlify-plugin-js-obfuscator)
-
-[![npm version](https://badge.fury.io/js/javascript-obfuscator.svg)](https://badge.fury.io/js/javascript-obfuscator)
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjavascript-obfuscator%2Fjavascript-obfuscator.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjavascript-obfuscator%2Fjavascript-obfuscator?ref=badge_shield)
-![Build Status](https://github.com/javascript-obfuscator/javascript-obfuscator/workflows/JavaScript%20Obfuscator%20CI/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/javascript-obfuscator/javascript-obfuscator/badge.svg)](https://coveralls.io/github/javascript-obfuscator/javascript-obfuscator)
-[![Backers on Open Collective](https://opencollective.com/javascript-obfuscator/backers/badge.svg)](#backers) 
-[![Sponsors on Open Collective](https://opencollective.com/javascript-obfuscator/sponsors/badge.svg)](#sponsors)
-[![xscode](https://img.shields.io/badge/Available%20on-xs%3Acode-blue?style=?style=plastic&logo=appveyor&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRF////////VXz1bAAAAAJ0Uk5T/wDltzBKAAAAlUlEQVR42uzXSwqAMAwE0Mn9L+3Ggtgkk35QwcnSJo9S+yGwM9DCooCbgn4YrJ4CIPUcQF7/XSBbx2TEz4sAZ2q1RAECBAiYBlCtvwN+KiYAlG7UDGj59MViT9hOwEqAhYCtAsUZvL6I6W8c2wcbd+LIWSCHSTeSAAECngN4xxIDSK9f4B9t377Wd7H5Nt7/Xz8eAgwAvesLRjYYPuUAAAAASUVORK5CYII=)](https://xscode.com/sanex3339/javascript-obfuscator)
-
-#### You can support this project by donating to the original author:
-* (Bitcoin) bc1q203p8nyrstwm7vwzjg3h9l9t6y9ka0umw0rx96
-
-Huge thanks to all supporters!
-
-#### *NOTE! the README on the master branch might not match that of the latest stable release!*
-
-#### If you have a question, check this section first: [FAQ](#frequently-asked-questions)
-
-## :warning: Important
-##### Only obfuscate the code that belongs to you. 
-
-It is not recommended to obfuscate vendor scripts and polyfills, since the obfuscated code is 15-80% slower (depends on options) and the files are significantly larger.
-
-## Installation
-
-#### Using Yarn or NPM
-
-Install the package with Yarn or NPM and add it to your `dependencies` or `devDependencies`:
-
-```sh
-$ yarn add --dev javascript-obfuscator
-```
-or
-```sh
-$ npm install --save-dev javascript-obfuscator
-```
-
-#### In a Browser
-
-From CDN:
-
-```html
-<script src="https://cdn.jsdelivr.net/npm/javascript-obfuscator/dist/index.browser.js"></script>
-```
-
-From `node_modules`:
-
-```html
-<script src="./node_modules/javascript-obfuscator/dist/index.browser.js"></script>
-```
-
-## CLI usage
+## CLI 
 
 See [CLI options](#cli-options).
 
@@ -94,135 +24,7 @@ See [CLI options](#cli-options).
 
 Usage:
 ```sh
-javascript-obfuscator input_file_name.js [options]
-javascript-obfuscator input_file_name.js --output output_file_name.js [options]
-javascript-obfuscator input_file_name.js --output output_folder_name [options]
-javascript-obfuscator input_folder_name --output output_folder_name [options]
-```
-
-Obfuscation of single input file with `.js` extension.
-
-If the destination path is not specified with the `--output` option, the obfuscated file will be saved into the input file directory, with `INPUT_FILE_NAME-obfuscated.js` name.
-
-Some examples:
-```sh
-javascript-obfuscator samples/sample.js --compact true --self-defending false
-// creates a new file samples/sample-obfuscated.js
-
-javascript-obfuscator samples/sample.js --output output/output.js --compact true --self-defending false
-// creates a new file output/output.js
-```
-
-#### Obfuscate directory recursively
-
-Usage:
-```sh
-javascript-obfuscator ./dist [options]
-// creates a new obfuscated files under `./dist` directory near the input files with `obfuscated` postfix
-
-javascript-obfuscator ./dist --output ./dist/obfuscated [options]
-// creates a folder structure with obfuscated files under `./dist/obfuscated` path
-```
-
-Obfuscation of all `.js` files under input directory. If this directory contains already obfuscated files with `-obfuscated` postfix - these files will ignored.
-
-Obfuscated files will saved into the input directory under `INPUT_FILE_NAME-obfuscated.js` name.
-
-## Conditional comments
-You can disable and enable obfuscation for specific parts of the code by adding following comments: 
-* disable: `// javascript-obfuscator:disable` or `/* javascript-obfuscator:disable */`;
-* enable: `// javascript-obfuscator:enable` or `/* javascript-obfuscator:enable */`.
-
-Example:
-```javascript
-// input
-var foo = 1;
-// javascript-obfuscator:disable
-var bar = 2;
-
-// output
-var _0xabc123 = 0x1;
-var bar = 2;
-```
-Conditional comments affect only direct transformations of AST-tree nodes. All child transformations still will be applied to the AST-tree nodes. 
-
-For example:
-* Obfuscation of the variable's name at its declaration is called direct transformation;
-* Obfuscation of the variable's name beyond its declaration is called child transformation.
-
-## Kind of variables
-
-Kind of variables of inserted nodes will auto-detected, based on most prevailing kind of variables of source code.
-
-## Conflicts of identifier names between different files
-
-During obfuscation of the different files, the same names can be generated for the global identifiers between these files.
-To prevent this set the unique prefix for all global identifiers for each obfuscated file with [`identifiersPrefix`](#identifiersprefix) option. 
-
-When using CLI this prefix will be added automatically.
-
-## JavaScript Obfuscator Options
-
-Following options are available for the JS Obfuscator:
-
-#### options:
-
-```javascript
-{
-    compact: true,
-    controlFlowFlattening: false,
-    controlFlowFlatteningThreshold: 0.75,
-    deadCodeInjection: false,
-    deadCodeInjectionThreshold: 0.4,
-    debugProtection: false,
-    debugProtectionInterval: 0,
-    disableConsoleOutput: false,
-    domainLock: [],
-    domainLockRedirectUrl: 'about:blank',
-    forceTransformStrings: [],
-    identifierNamesCache: null,
-    identifierNamesGenerator: 'hexadecimal',
-    identifiersDictionary: [],
-    identifiersPrefix: '',
-    ignoreImports: false,
-    inputFileName: '',
-    log: false,
-    numbersToExpressions: false,
-    optionsPreset: 'default',
-    renameGlobals: false,
-    renameProperties: false,
-    renamePropertiesMode: 'safe',
-    reservedNames: [],
-    reservedStrings: [],
-    seed: 0,
-    selfDefending: false,
-    simplify: true,
-    sourceMap: false,
-    sourceMapBaseUrl: '',
-    sourceMapFileName: '',
-    sourceMapMode: 'separate',
-    sourceMapSourcesMode: 'sources-content',
-    splitStrings: false,
-    splitStringsChunkLength: 10,
-    stringArray: true,
-    stringArrayCallsTransform: true,
-    stringArrayCallsTransformThreshold: 0.5,
-    stringArrayEncoding: [],
-    stringArrayIndexesType: [
-        'hexadecimal-number'
-    ],
-    stringArrayIndexShift: true,
-    stringArrayRotate: true,
-    stringArrayShuffle: true,
-    stringArrayWrappersCount: 1,
-    stringArrayWrappersChainedCalls: true,
-    stringArrayWrappersParametersMaxCount: 2,
-    stringArrayWrappersType: 'variable',
-    stringArrayThreshold: 0.75,
-    target: 'browser',
-    transformObjectKeys: false,
-    unicodeEscapeSequence: false
-}
+javascript-obfuscator "base64 encoded jscript" [options]
 ```
 
 #### CLI options:
